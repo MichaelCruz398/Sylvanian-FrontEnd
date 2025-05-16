@@ -1,0 +1,12 @@
+<div class="mis-tarjetas-container">
+  <h2 class="text-center mb-4">Mis Tarjetas Completadas 💖</h2>
+  <div class="tarjetas-grid">
+    <div class="tarjeta-completa" *ngFor="let tarjeta of tarjetasCompletadas">
+      <img [src]="tarjeta.miniatura" alt="Vista previa" class="miniatura" />
+      <p class="fecha">Completada el {{ tarjeta.fecha | date: 'dd/MM/yyyy' }}</p>
+      <button class="btn btn-outline-primary btn-sm" (click)="descargar(tarjeta.descarga)">
+        Descargar tarjeta con Freya 🐇
+      </button>
+    </div>
+  </div>
+</div>

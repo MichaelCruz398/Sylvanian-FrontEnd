@@ -1,0 +1,95 @@
+@media (max-width: 600px) {
+  .acciones {
+    flex-direction: column;
+    align-items: stretch;
+
+    .cerrar {
+      width: 100%;
+    }
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("/assets/images/patron-fondo.png") !important;
+  background-repeat: repeat !important;
+  background-size: 250px !important;
+  background-color: #fffaf3 !important;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  height: 100%
+}
+
+h1,
+h2,
+h3 {
+  color: #b3887b;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: #7a6a5e;
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background-color: #ffadc4;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #e78fae;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.page-content {
+  flex: 1;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.router-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+}

@@ -1,0 +1,9 @@
+<div class="recuperar-container">
+  <h2>Recuperar Contraseña 🔐</h2>
+  <input [(ngModel)]="email" type="email" class="form-control my-3" placeholder="Tu correo" />
+  <button class="btn btn-primary" (click)="recuperar()">Enviar</button>
+
+  <div *ngIf="enviado" class="alert alert-success mt-3">
+    ✉️ Revisa tu correo para continuar con la recuperación.
+  </div>
+</div>

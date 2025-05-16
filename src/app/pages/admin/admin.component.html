@@ -1,0 +1,29 @@
+<div class="admin-container">
+  <h2 class="text-center mb-4">Panel de Administración 👩‍💼</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Stickers</th>
+          <th>Asignar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ usuario.stickers }}</td>
+          <td>
+            <div class="d-flex">
+              <input type="number" [(ngModel)]="stickerAsignar" min="1" class="form-control me-2"
+                style="max-width: 80px;" />
+              <button class="btn btn-success btn-sm" (click)="asignarSticker(usuario.id)">Asignar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="historial-container">
+  <h2 class="mb-4">🎁 Mis Premios Desbloqueados</h2>
+  <ul class="list-group">
+    <li *ngFor="let premio of premios" class="list-group-item">
+      <strong>{{ premio.descuento }}% de descuento</strong> - obtenido el
+      {{ premio.fecha | date: 'dd/MM/yyyy' }} (Tarjeta #{{ premio.tarjetaId }})
+    </li>
+  </ul>
+</div>

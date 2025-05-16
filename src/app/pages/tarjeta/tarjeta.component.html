@@ -1,0 +1,66 @@
+<img src="assets/images/patron-fondo.png" class="fondo-img" />
+<div class="tarjeta-outer" (mousedown)="startDrag($event)" (mouseup)="endDrag($event)" (touchstart)="startDrag($event)"
+  (touchend)="endDrag($event)">
+  <div class="tarjeta" [class.girada]="tarjetaGirada">
+    <!-- FRENTE -->
+    <div class="cara frente tarjeta-fisica">
+      <div class="lado-izquierdo">
+        <div class="titulo-lado-izq" style="align-items: flex-start; margin-left: 20px;">
+          <span class="titulo-mayus">TARJETA</span>
+          <span class="titulo-curva">cliente</span>
+          <span class="titulo-mayus">FRECUENTE</span>
+          <img src="assets/images/conejita.png" class="img-conejita" />
+        </div>
+
+        <div class="campo-nombre"></div>
+
+        <p class="mensaje-agradecimiento">
+          GRACIAS POR APOYAR Y CONFIAR EN NUESTRO EMPRENDIMIENTO✨<br />
+          TE MERECES OBTENER UN DESCUENTO
+        </p>
+
+        <img src="assets/images/qr.png" class="qr-img" />
+        <p class="instagram">rincon_sylvanian</p>
+      </div>
+
+      <div class="lado-derecho">
+        <div class="fondo-ondas">
+          <div class="espacios">
+            <div *ngFor="let espacio of espacios; let i = index" [id]="'espacio-' + espacio.id"
+              [ngClass]="{ ocupado: espacio.ocupado, premio: espacio.premio }" class="circulo"
+              (click)="pegarSticker(i)">
+              <ng-container *ngIf="espacio.ocupado; else noSticker">
+                <img [src]="espacio.imagen" />
+              </ng-container>
+              <ng-template #noSticker>
+                <span *ngIf="espacio.premio">{{ espacio.texto }}</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVERSO -->
+    <div class="cara reverso tarjeta-reverso">
+      <div class="texto-superior">
+        <h2>RINCON SYLVANIAN</h2>
+        <p>EXCLUSIVOS DESDE JAPÓN</p>
+      </div>
+      <div class="logo-centro">
+        <img src="assets/images/logo.png" alt="Sticker Central" />
+      </div>
+      <div class="ondas-inferior"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ANIMACIÓN PREMIO -->
+<div class="animacion-premio" *ngIf="mostrarAnimacionPremio">
+  <div class="cuadro-premio">
+    <div class="estrellitas">✨ ✨ ✨</div>
+    <h2>🎁 ¡Premio desbloqueado!</h2>
+    <p>¡Has ganado un descuento del {{ premioActual }}%!</p>
+    <button (click)="cerrarAnimacionPremio()">Aceptar</button>
+  </div>
+</div>

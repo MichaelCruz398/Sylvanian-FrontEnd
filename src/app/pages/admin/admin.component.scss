@@ -1,0 +1,52 @@
+.admin-container {
+  padding: 2rem;
+  background-color: #fcf8ed;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+
+  h2 {
+    color: #b3887b;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    font-size: 0.95rem;
+    border: none;
+
+    thead {
+      background-color: #ffe4ec;
+      color: #7a5a5a;
+      font-weight: 600;
+    }
+
+    td, th {
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      font-size: 0.9rem;
+      border: 1px solid #e6d4d4;
+    }
+
+    .btn-success {
+      background-color: #ffadc4;
+      border-color: #ffadc4;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #f98ba9;
+        border-color: #f98ba9;
+      }
+    }
+  }
+}

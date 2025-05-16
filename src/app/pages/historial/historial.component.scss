@@ -1,0 +1,57 @@
+.historial-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 2rem;
+  background: #fcf8ed;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.list-group-item {
+  border: none;
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .titulo {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .espacio {
+    width: 12vw;
+    height: 12vw;
+    max-width: 50px;
+    max-height: 50px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+.fondo-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: 0; // 👈 bajamos el z-index solo un nivel
+  opacity: 0.2;
+  pointer-events: none; // 👈 evita que bloquee clics
+}
