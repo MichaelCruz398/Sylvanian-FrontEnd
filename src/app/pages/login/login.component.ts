@@ -17,7 +17,7 @@ export class LoginComponent {
   errorMessage = '';
   cargando = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, public router: Router) { }
 
 
   iniciarSesion() {

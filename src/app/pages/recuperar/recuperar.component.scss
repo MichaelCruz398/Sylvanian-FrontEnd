@@ -1,0 +1,44 @@
+.recuperar-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 2rem;
+  background-color: #fcf8ed;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h2 {
+    color: #b3887b;
+    margin-bottom: 1.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #b5b299;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  button {
+    background-color: #ffb6c1;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  button:hover {
+    background-color: #ff96ae;
+  }
+
+  .mensaje {
+    margin-top: 1rem;
+    color: #7b6a5b;
+  }
+}

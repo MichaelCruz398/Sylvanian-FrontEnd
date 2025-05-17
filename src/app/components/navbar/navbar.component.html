@@ -1,30 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
-  <a class="navbar-brand" href="#">🐭 Rincón Sylvanian</a>
+<nav class="top-navbar">
+  <div class="navbar-left d-flex align-items-center">
+    <img src="https://unrivaled-sundae-e419d6.netlify.app/logo.png" alt="Logo" class="logo" />
+    <a routerLink="/" class="nav-brand">🐭 Rincón Sylvanian</a>
 
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      
-      <li class="nav-item" *ngIf="userRol === 'cliente'">
-        <a class="nav-link" routerLink="/home">Inicio</a>
-      </li>
-      <li class="nav-item" *ngIf="userRol === 'cliente'">
-        <a class="nav-link" routerLink="/tarjeta">Mi Tarjeta</a>
-      </li>
-      <li class="nav-item" *ngIf="userRol === 'cliente'">
-        <a class="nav-link" routerLink="/historial">Historial</a>
-      </li>
-      <li class="nav-item" *ngIf="userRol === 'cliente'">
-        <a class="nav-link" routerLink="/mis-tarjetas">Mis Tarjetas</a>
-      </li>
+    <a *ngIf="userRol === 'cliente'" routerLink="/home">🏠 Inicio</a>
+    <a *ngIf="userRol === 'cliente'" routerLink="/tarjeta">🎟️ Mi Tarjeta</a>
+    <a *ngIf="userRol === 'cliente'" routerLink="/historial">📜 Historial</a>
+    <a *ngIf="userRol === 'cliente'" routerLink="/mis-tarjetas">📦 Mis Tarjetas</a>
+    <a *ngIf="userRol === 'admin'" routerLink="/admin">🛠️ Administrar</a>
+  </div>
 
-      <li class="nav-item" *ngIf="userRol === 'admin'">
-        <a class="nav-link" routerLink="/admin">Administrar</a>
-      </li>
-    </ul>
-
-    <div class="d-flex align-items-center">
-      <span class="me-3 text-muted">👤 {{ auth.obtenerNombre() }}</span>
-      <button class="btn btn-outline-danger btn-sm cerrar" (click)="cerrarSesion()">Cerrar sesión</button>
+  <div class="navbar-right" (click)="toggleMenu()" tabindex="0">
+    <span class="usuario">👩‍💼 {{ auth.obtenerNombre() }}</span>
+    <div class="user-menu" *ngIf="menuAbierto">
+      <a routerLink="/configuracion">⚙️ Configuración</a>
+      <button (click)="cerrarSesion()">🚪 Cerrar sesión</button>
     </div>
   </div>
 </nav>

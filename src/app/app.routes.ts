@@ -7,17 +7,19 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { HistorialComponent } from './pages/historial/historial.component';
 import { MisTarjetasComponent } from './pages/mis-tarjetas/mis-tarjetas.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
+  { path: 'registro', loadComponent: () => import('./pages/registro/registro.component').then(m => m.RegistroComponent)},
   { path: 'tarjeta', component: TarjetaComponent},
   //  { path: 'tarjeta', component: TarjetaComponent, data: { animation: 'TarjetaPage' }},
   { path: 'admin', component: AdminComponent },
   { path: 'historial', component: HistorialComponent },
   { path: 'mis-tarjetas', component: MisTarjetasComponent },
   { path: 'recuperar', component: RecuperarComponent },
+  { path: 'cambiar-password', component: CambiarPasswordComponent }
 
 ];

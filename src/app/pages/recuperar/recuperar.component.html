@@ -1,9 +1,24 @@
-<div class="recuperar-container">
-  <h2>Recuperar Contraseña 🔐</h2>
-  <input [(ngModel)]="email" type="email" class="form-control my-3" placeholder="Tu correo" />
-  <button class="btn btn-primary" (click)="recuperar()">Enviar</button>
-
-  <div *ngIf="enviado" class="alert alert-success mt-3">
-    ✉️ Revisa tu correo para continuar con la recuperación.
+<div class="login-container p-4" style="max-width: 400px; margin: 40px auto; background-color: #fffaf3; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img src="https://unrivaled-sundae-e419d6.netlify.app/logo.png" alt="Logo Rincón Sylvanian" width="90" />
   </div>
+
+  <h2 class="mb-3 text-center" style="color: #b3887b;">¿Olvidaste tu contraseña?</h2>
+
+  <div class="form-group mb-3">
+    <label class="form-label">Correo electrónico</label>
+    <input [(ngModel)]="email" type="email" placeholder="Ingresa tu correo registrado" class="form-control" />
+  </div>
+
+  <div *ngIf="mensaje" class="alert alert-success mt-3 text-center">{{ mensaje }}</div>
+  <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+
+  <button (click)="recuperar()" class="btn btn-primary w-100 mt-3" style="background-color: #ffb6b9; border: none;">
+    Enviar correo de recuperación
+  </button>
+  <div class="text-center mt-4">
+  <button (click)="volverAlLogin()" class="btn btn-outline-secondary" style="border-radius: 10px; padding: 8px 20px;">
+    ⬅️ Volver al inicio
+  </button>
+</div>
 </div>
