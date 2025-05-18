@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { TarjetasService } from '../../services/tarjetas.service';
+import { AuthService } from '../../services/auth.service';
 
 interface Espacio {
   id: number;
@@ -26,6 +28,8 @@ export class TarjetaComponent implements OnInit {
   premioActual = 0;
   stickersDisponibles = 0;
   tarjetaId!: number;
+  nombreUsuario: string = '';
+
 
   espacios: Espacio[] = Array.from({ length: 15 }, (_, i) => {
     const id = i + 1;
@@ -45,26 +49,32 @@ export class TarjetaComponent implements OnInit {
     };
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tarjetasService: TarjetasService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.obtenerStickers();
     this.cargarTarjetaActiva();
-    this.obtenerStickersDisponibles();
+    this.nombreUsuario = this.authService.obtenerNombre();
+
   }
 
   cargarTarjetaActiva(): void {
-    this.http.get<any>('http://localhost:5039/api/tarjetas/activa')
+    this.http.get<any>('https://localhost:44361/api/tarjetas/activa')
       .subscribe(tarjeta => {
         this.tarjetaId = tarjeta.id;
         this.pegarStickers(tarjeta.stickersPegados);
       });
   }
 
-  obtenerStickersDisponibles(): void {
-    this.http.get<any>('http://localhost:5039/api/tarjetas/mis-stickers')
-      .subscribe(res => {
+  obtenerStickers(): void {
+    this.tarjetasService.obtenerStickersDisponibles().subscribe({
+      next: (res) => {
         this.stickersDisponibles = res.cantidad;
-      });
+      },
+      error: () => {
+        console.error('Error al obtener los stickers disponibles');
+      }
+    });
   }
 
   pegarStickers(cantidad: number): void {
@@ -74,30 +84,36 @@ export class TarjetaComponent implements OnInit {
     }
   }
 
-  pegarSticker(index: number): void {
-    const espacio = this.espacios[index];
-    const primerLibre = this.espacios.findIndex(e => !e.ocupado);
+  pegarSticker(): void {
+  if (!this.tarjetaId || this.stickersDisponibles <= 0) return;
 
-    if (index !== primerLibre || this.stickersDisponibles <= 0) return;
+  this.tarjetasService.pegarSticker(this.tarjetaId).subscribe({
+   next: (res: any) => {
+  console.log('✅ Sticker pegado', res);
+  this.obtenerStickers();
 
-    this.http.post('http://localhost:5039/api/tarjetas/pegar-sticker', this.tarjetaId)
-      .subscribe(() => {
-        espacio.ocupado = true;
-        espacio.imagen = this.stickerURL;
-        this.stickersDisponibles--;
+  // Espera un poquito a que se actualice y vuelva a cargar la tarjeta
+  setTimeout(() => {
+    this.cargarTarjetaActiva(); // volverá con la nueva tarjeta si se completó
 
-        const celda = document.getElementById(`espacio-${espacio.id}`);
-        if (celda) {
-          celda.classList.add('animado');
-          setTimeout(() => celda.classList.remove('animado'), 500);
-        }
+    const pegados = this.espacios.filter(e => e.ocupado).length + 1;
 
-        if (espacio.premio) {
-          this.premioActual = this.obtenerDescuentoPorEspacio(espacio.id);
-          this.mostrarAnimacionPremio = true;
-        }
-      });
-  }
+    if (pegados >= 15) {
+      alert("🎉 ¡Has completado tu tarjeta! Se ha generado una nueva.");
+    }
+
+    // Detectar si fue un premio
+    const espacioPegado = this.espacios[pegados - 1];
+    if (espacioPegado && espacioPegado.premio) {
+      this.premioActual = this.obtenerDescuentoPorEspacio(espacioPegado.id);
+      this.mostrarAnimacionPremio = true;
+    }
+  }, 500);
+}
+
+  });
+}
+
 
   obtenerDescuentoPorEspacio(id: number): number {
     switch (id) {

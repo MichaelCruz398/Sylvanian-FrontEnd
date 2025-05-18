@@ -1,4 +1,13 @@
 <img src="assets/images/patron-fondo.png" class="fondo-img" />
+<div class="stickers-disponibles">
+  <p>
+    🟣 Tienes <strong>{{ stickersDisponibles }}</strong>
+    sticker{{ stickersDisponibles === 1 ? '' : 's' }}
+    disponible{{ stickersDisponibles === 1 ? '' : 's' }}
+  </p>
+</div>
+
+
 <div class="tarjeta-outer" (mousedown)="startDrag($event)" (mouseup)="endDrag($event)" (touchstart)="startDrag($event)"
   (touchend)="endDrag($event)">
   <div class="tarjeta" [class.girada]="tarjetaGirada">
@@ -11,8 +20,9 @@
           <span class="titulo-mayus">FRECUENTE</span>
           <img src="assets/images/conejita.png" class="img-conejita" />
         </div>
-
-        <div class="campo-nombre"></div>
+        <div class="campo-nombre">
+          <span>{{ nombreUsuario }}</span>
+        </div>
 
         <p class="mensaje-agradecimiento">
           GRACIAS POR APOYAR Y CONFIAR EN NUESTRO EMPRENDIMIENTO✨<br />
@@ -28,7 +38,7 @@
           <div class="espacios">
             <div *ngFor="let espacio of espacios; let i = index" [id]="'espacio-' + espacio.id"
               [ngClass]="{ ocupado: espacio.ocupado, premio: espacio.premio }" class="circulo"
-              (click)="pegarSticker(i)">
+              (click)="!espacio.ocupado && pegarSticker()">
               <ng-container *ngIf="espacio.ocupado; else noSticker">
                 <img [src]="espacio.imagen" />
               </ng-container>

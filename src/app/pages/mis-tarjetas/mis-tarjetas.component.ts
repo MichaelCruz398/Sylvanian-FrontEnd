@@ -16,11 +16,11 @@ export class MisTarjetasComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:5039/api/tarjetas/completadas').subscribe(data => {
+    this.http.get<any[]>('https://localhost:44361/api/tarjetas/completadas').subscribe(data => {
       this.tarjetasCompletadas = data.map(t => ({
         ...t,
-        miniatura: 'assets/images/tarjeta-llena.png',
-        descarga: 'assets/images/tarjeta-freya.png'
+        miniatura: 'assets/images/tarjeta-completa.png',
+        descarga: 'assets/images/tarjeta-llena.png'
       }));
     });
   }

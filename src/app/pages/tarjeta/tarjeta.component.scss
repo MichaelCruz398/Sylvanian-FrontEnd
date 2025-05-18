@@ -555,3 +555,33 @@
     height: 40px;
   }
 }
+.stickers-disponibles {
+  background-color: #fff0f6;
+  border: 2px dashed #ffb6b9;
+  color: #a679b4;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  text-align: center;
+  max-width: 400px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+.campo-nombre {
+  background-color: white;
+  border: 2px dashed #b3887b;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 10px 20px;
+  min-height: 30px; // altura mínima constante
+  display: flex;
+  align-items: center;        // ⬅️ centra verticalmente el texto
+  justify-content: center;    // ⬅️ centra horizontalmente
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.3rem;          // ⬆️ tamaño de letra más grande
+  font-weight: bold;
+  color: #a679b4;
+  text-align: center;
+}

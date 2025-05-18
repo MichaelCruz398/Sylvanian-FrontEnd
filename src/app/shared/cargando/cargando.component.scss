@@ -1,0 +1,55 @@
+.cargando-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 245, 250, 0.95); // más cálido y suave
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.cargando-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.cargando-spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #ffb6b9;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.cargando-texto {
+  font-size: 1.4rem;
+  color: #a679b4;
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

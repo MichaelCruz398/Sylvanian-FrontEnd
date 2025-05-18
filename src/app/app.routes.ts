@@ -12,7 +12,7 @@ import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-passw
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
   { path: 'registro', loadComponent: () => import('./pages/registro/registro.component').then(m => m.RegistroComponent)},
   { path: 'tarjeta', component: TarjetaComponent},
   //  { path: 'tarjeta', component: TarjetaComponent, data: { animation: 'TarjetaPage' }},

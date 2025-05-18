@@ -1,7 +1,8 @@
+<!-- Pantalla de carga -->
 <div class="login-container">
   <img src="assets/images/logo.png" alt="Logo" class="logo mb-4" />
 
-  <h2 class="mb-3">Iniciar sesión</h2>
+  <h2 class="mb-3 text-center" style="color: #b3887b;">Iniciar sesión</h2>
 
   <form (ngSubmit)="iniciarSesion()">
     <div class="form-group mb-3">
@@ -29,24 +30,27 @@
     <div class="text-end mb-3">
       <span
         (click)="router.navigate(['/recuperar'])"
-        style="font-size: 0.9rem; color: #007bff; cursor: pointer; text-decoration: underline;"
+        style="font-size: 0.9rem; color: #a679b4; cursor: pointer; text-decoration: underline;"
       >
         ¿Olvidaste tu contraseña?
       </span>
     </div>
 
-    <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+    <div *ngIf="errorMessage" class="alert alert-danger mt-2 text-center">
       {{ errorMessage }}
     </div>
 
-    <button type="submit" class="btn btn-primary w-100 mt-3">Ingresar</button>
+    <button type="submit" class="btn w-100 mt-3"
+      style="background-color: #e69bbf; border: none; color: white; font-weight: bold;">
+      Ingresar
+    </button>
   </form>
 
-  <p class="mt-3 text-muted">
+  <p class="mt-3 text-muted text-center">
     ¿No tienes cuenta?
     <span
       (click)="router.navigate(['/registro'])"
-      style="color: #007bff; cursor: pointer; text-decoration: underline;"
+      style="color: #a679b4; cursor: pointer; text-decoration: underline;"
     >
       Regístrate aquí
     </span>
