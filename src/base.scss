@@ -93,3 +93,24 @@ button:active {
   width: 2.5rem;
   height: 2.5rem;
 }
+
+.sweet-popup {
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.sweet-title {
+  color: #a2796d !important;
+  font-size: 1.6rem !important;
+  margin-bottom: 1rem;
+}
+
+.sweet-btn {
+  background-color: #ffb6b9 !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 10px !important;
+  padding: 8px 20px;
+}

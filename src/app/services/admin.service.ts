@@ -8,7 +8,7 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   obtenerUsuarios() {
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios/todos`);
+    return this.http.get<any[]>(`${this.apiUrl}/Usuarios/todos`);
   }
 
   asignarSticker(usuarioId: number) {

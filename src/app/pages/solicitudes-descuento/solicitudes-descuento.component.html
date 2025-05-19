@@ -1,0 +1,56 @@
+<div class="solicitudes-container">
+  <h2 class="titulo-admin">📥 Solicitudes de Descuento</h2>
+
+  <table class="tabla-solicitudes" *ngIf="solicitudes.length > 0; else sinSolicitudes">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Descuento</th>
+        <th>Tarjeta</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of solicitudes">
+        <td>{{ s.usuario }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.descuento }}%</td>
+        <td>#{{ s.tarjetaId }}</td>
+        <td>{{ s.fecha | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <button (click)="aprobar(s.id, s.usuario)" class="btn btn-success btn-sm">Aprobar</button>
+          <button (click)="rechazar(s.id)" class="btn btn-danger btn-sm">Rechazar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinSolicitudes>
+    <p class="mensaje-vacio">✨ No hay solicitudes pendientes</p>
+  </ng-template>
+
+  <hr class="my-4">
+
+  <h3 class="titulo-aprobados">✅ Descuentos Aprobados</h3>
+  <table class="tabla-solicitudes" *ngIf="aprobados.length > 0">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Descuento</th>
+        <th>Tarjeta</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of aprobados">
+        <td>{{ a.usuario }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.descuento }}%</td>
+        <td>#{{ a.tarjetaId }}</td>
+        <td>{{ a.fecha | date: 'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>

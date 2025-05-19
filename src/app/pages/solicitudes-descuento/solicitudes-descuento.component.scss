@@ -1,0 +1,82 @@
+.solicitudes-container {
+  background-color: #fffaf3;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.titulo-admin {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #b3887b;
+  margin-bottom: 1.5rem;
+}
+
+.tabla-solicitudes {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tabla-solicitudes th,
+.tabla-solicitudes td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #f3e9e0;
+  font-size: 0.95rem;
+}
+
+.tabla-solicitudes th {
+  background-color: #f9f1ec;
+  color: #7a6a5e;
+  font-weight: bold;
+}
+
+.tabla-solicitudes tr:hover {
+  background-color: #fff0f6;
+  transition: 0.3s;
+}
+
+.btn {
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+}
+
+.btn-success {
+  background-color: #a5d6a7;
+  color: #2e7d32;
+}
+
+.btn-success:hover {
+  background-color: #81c784;
+}
+
+.btn-danger {
+  background-color: #f8bbd0;
+  color: #880e4f;
+}
+
+.btn-danger:hover {
+  background-color: #f48fb1;
+}
+
+.mensaje-vacio {
+  text-align: center;
+  margin-top: 2rem;
+  color: #b3887b;
+  font-size: 1rem;
+}

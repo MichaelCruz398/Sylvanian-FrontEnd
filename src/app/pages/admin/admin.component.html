@@ -1,29 +1,26 @@
 <div class="admin-container">
-  <h2 class="text-center mb-4">Panel de Administración 👩‍💼</h2>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped align-middle">
-      <thead class="table-light">
-        <tr>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Stickers</th>
-          <th>Asignar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td>{{ usuario.stickers }}</td>
-          <td>
-            <div class="d-flex">
-              <input type="number" [(ngModel)]="stickerAsignar" min="1" class="form-control me-2"
-                style="max-width: 80px;" />
-              <button class="btn btn-success btn-sm" (click)="asignarSticker(usuario.id)">Asignar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h2 class="titulo-admin">👩‍💼 Panel de Administración</h2>
+
+  <input [(ngModel)]="busqueda" placeholder="🔍 Buscar por nombre..." class="input-busqueda" />
+
+  <table class="tabla-usuarios">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Stickers</th>
+        <th>Asignar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuariosFiltrados()">
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.correo }}</td>
+        <td>{{ u.stickers }}</td>
+        <td>
+          <button (click)="asignarSticker(u.id)" class="btn-asignar">🎟️ Asignar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

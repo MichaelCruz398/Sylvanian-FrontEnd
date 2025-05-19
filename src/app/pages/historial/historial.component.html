@@ -1,9 +1,36 @@
 <div class="historial-container">
-  <h2 class="mb-4">🎁 Mis Premios Desbloqueados</h2>
-  <ul class="list-group">
-    <li *ngFor="let premio of premios" class="list-group-item">
-      <strong>{{ premio.descuento }}% de descuento</strong> - obtenido el
-      {{ premio.fecha | date: 'dd/MM/yyyy' }} (Tarjeta #{{ premio.tarjetaId }})
-    </li>
-  </ul>
+  <div class="historial-wrapper">
+    <h2 class="titulo-historial">🎁 Mis Premios Desbloqueados</h2>
+
+    <div *ngIf="premios.length > 0; else sinPremios">
+      <ul class="lista-premios">
+        <li *ngFor="let premio of premios" class="item-premio">
+          <span class="emoji-premio">✨</span>
+          <div class="info-premio">
+            <strong>{{ premio.descuento }}% de descuento</strong>
+            <small>Obtenido el {{ premio.fecha | date: 'dd/MM/yyyy' }}</small>
+            <small class="tarjeta-id">🎟️ Tarjeta #{{ premio.tarjetaId }}</small>
+
+            <div class="estado-premio mt-2">
+              <ng-container *ngIf="premio.usado">
+                <span class="badge badge-usado">✅ Usado</span>
+              </ng-container>
+              <ng-container *ngIf="!premio.usado && premio.enRevision">
+                <span class="badge badge-revision">🕒 En revisión</span>
+              </ng-container>
+              <ng-container *ngIf="!premio.usado && !premio.enRevision">
+                <button (click)="solicitarUso(premio.id, premio.descuento)" class="btn-solicitar">
+                  Utilizar Descuento
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #sinPremios>
+      <p class="mensaje-vacio">😢 Aún no has desbloqueado ningún premio</p>
+    </ng-template>
+  </div>
 </div>

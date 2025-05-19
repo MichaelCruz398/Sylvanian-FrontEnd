@@ -6,6 +6,7 @@
     <a *ngIf="userRol === 'cliente'" routerLink="/historial">📜 Historial</a>
     <a *ngIf="userRol === 'cliente'" routerLink="/mis-tarjetas">📦 Mis Tarjetas</a>
     <a *ngIf="userRol === 'admin'" routerLink="/admin">🛠️ Administrar</a>
+    <a *ngIf="userRol === 'admin'" routerLink="/solicitudes-descuento">📥 Solicitudes</a>
   </div>
 
   <div class="navbar-right" (click)="toggleMenu()" tabindex="0">
