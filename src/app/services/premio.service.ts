@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root'})
 export class PremiosService {
-  private apiUrl = 'https://localhost:44361/api/premios';
+  private apiUrl = 'https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/premios';
 
   constructor(private http: HttpClient) {}
 

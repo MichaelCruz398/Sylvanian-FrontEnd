@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TarjetasService {
-  private apiUrl = 'https://localhost:44361/api/tarjetas';
+  private apiUrl = 'https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas';
 
   constructor(private http: HttpClient) { }
 
@@ -13,7 +13,7 @@ export class TarjetasService {
     return this.http.get<{ cantidad: number }>(`${this.apiUrl}/mis-stickers`);
   }
   pegarSticker(tarjetaId: number) {
-    return this.http.post('https://localhost:44361/api/tarjetas/pegar-sticker', tarjetaId,
+    return this.http.post('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/pegar-sticker', tarjetaId,
       {
         headers: { 'Content-Type': 'application/json' }
       }
