@@ -44,7 +44,7 @@ export class CambiarPasswordComponent implements OnInit {
       nuevaPassword: this.password
     };
 
-    this.http.post('https://localhost:44361/api/password/cambiar-password', body, {
+    this.http.post('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/password/cambiar-password', body, {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe({
       next: () => {

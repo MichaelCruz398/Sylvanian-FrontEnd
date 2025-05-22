@@ -32,7 +32,7 @@ recuperar() {
 
   const payload = { email: this.email };
 
-  this.http.post('https://localhost:5039/api/password/solicitar-recuperacion', payload, {
+  this.http.post('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/password/solicitar-recuperacion', payload, {
     headers: { 'Content-Type': 'application/json' }
   }).subscribe({
     next: () => {

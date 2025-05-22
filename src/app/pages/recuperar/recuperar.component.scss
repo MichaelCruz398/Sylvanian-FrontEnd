@@ -1,44 +1,92 @@
-.recuperar-container {
+.login-container {
+  background-color: #fffaf3;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  margin: 60px auto;
+  margin: 40px auto;
   padding: 2rem;
-  background-color: #fcf8ed;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
 
   h2 {
     color: #b3887b;
+    font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
 
-  input {
-    width: 100%;
-    padding: 0.7rem;
-    border: 2px solid #b5b299;
-    border-radius: 10px;
+  .form-group {
     margin-bottom: 1rem;
-    font-size: 1rem;
+
+    label {
+      font-weight: 500;
+      color: #7a5a50;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 10px;
+      border: 1px solid #e0cfcf;
+      font-size: 1rem;
+    }
+  }
+
+  .alert {
+    font-size: 0.95rem;
+    border-radius: 10px;
+    padding: 0.75rem;
   }
 
   button {
-    background-color: #ffb6c1;
-    color: #fff;
-    border: none;
-    padding: 0.7rem 1.5rem;
     border-radius: 10px;
     font-weight: bold;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    transition: background-color 0.3s;
   }
 
-  button:hover {
-    background-color: #ff96ae;
+  .btn-primary {
+    background-color: #ffb6b9;
+    border: none;
+
+    &:hover {
+      background-color: #f48fb1;
+    }
   }
 
-  .mensaje {
-    margin-top: 1rem;
-    color: #7b6a5b;
+  .btn-outline-secondary {
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    color: #555;
+    background-color: white;
+    border: 1px solid #ccc;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem 1rem;
+    margin: 20px 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    button {
+      font-size: 0.95rem;
+    }
+
+    .btn-outline-secondary {
+      width: 100%;
+    }
   }
 }

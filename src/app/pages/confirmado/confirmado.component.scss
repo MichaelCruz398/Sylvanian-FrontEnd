@@ -1,0 +1,42 @@
+.confirmado-container {
+  max-width: 500px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fffaf3;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+
+  h2 {
+    color: #a86aa4;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #7a5a50;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    background-color: #ffb6b9;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f48fb1;
+    }
+  }
+
+  .logo {
+    width: 100px;
+    margin-bottom: 1.5rem;
+  }
+}

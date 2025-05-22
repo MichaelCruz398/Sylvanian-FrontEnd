@@ -8,7 +8,7 @@ import { HistorialComponent } from './pages/historial/historial.component';
 import { MisTarjetasComponent } from './pages/mis-tarjetas/mis-tarjetas.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { CambiarPasswordComponent } from './pages/cambiar-password/cambiar-password.component';
-import { SolicitudesDescuentoComponent } from './pages/solicitudes-descuento/solicitudes-descuento.component';
+import { ConfirmadoComponent } from './pages/confirmado/confirmado.component';
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
@@ -22,7 +22,6 @@ export const routes: Routes = [
   { path: 'mis-tarjetas', component: MisTarjetasComponent },
   { path: 'recuperar', component: RecuperarComponent },
   { path: 'cambiar-password', component: CambiarPasswordComponent },
-  { path: 'solicitudes-descuento', loadComponent: () => import('./pages/solicitudes-descuento/solicitudes-descuento.component').then(m => m.SolicitudesDescuentoComponent)}
-
-
+  { path: 'solicitudes-descuento', loadComponent: () => import('./pages/solicitudes-descuento/solicitudes-descuento.component').then(m => m.SolicitudesDescuentoComponent)},
+  { path: 'confirmado', component: ConfirmadoComponent }
 ];
