@@ -16,7 +16,7 @@ export class MisTarjetasComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('https://localhost:44361/api/tarjetas/completadas').subscribe(data => {
+    this.http.get<any[]>('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/completadas').subscribe(data => {
       this.tarjetasCompletadas = data.map(t => ({
         ...t,
         miniatura: 'assets/images/tarjeta-completa.png',

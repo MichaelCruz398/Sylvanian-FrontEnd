@@ -14,10 +14,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let u of usuariosFiltrados()">
-        <td>{{ u.nombre }}</td>
-        <td>{{ u.correo }}</td>
-        <td>{{ u.stickers }}</td>
-        <td>
+        <td data-label = "Nombre">{{ u.nombre }}</td>
+        <td data-label = "Correo">{{ u.correo }}</td>
+        <td data-label = "Stickers">{{ u.stickers }}</td>
+        <td data-label = "Asignar">
           <button (click)="asignarSticker(u.id)" class="btn-asignar">🎟️ Asignar</button>
         </td>
       </tr>

@@ -29,6 +29,8 @@ export class TarjetaComponent implements OnInit {
   stickersDisponibles = 0;
   tarjetaId!: number;
   nombreUsuario: string = '';
+  esMovil: boolean = false;
+  pegandoSticker: boolean = false;
 
 
   espacios: Espacio[] = Array.from({ length: 15 }, (_, i) => {
@@ -49,17 +51,20 @@ export class TarjetaComponent implements OnInit {
     };
   });
 
-  constructor(private http: HttpClient, private tarjetasService: TarjetasService, private authService: AuthService) {}
+  constructor(private http: HttpClient, private tarjetasService: TarjetasService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.esMovil = window.innerWidth <= 768;
     this.obtenerStickers();
     this.cargarTarjetaActiva();
     this.nombreUsuario = this.authService.obtenerNombre();
-
+    window.addEventListener('resize', () => {
+      this.esMovil = window.innerWidth <= 768;
+    });
   }
 
   cargarTarjetaActiva(): void {
-    this.http.get<any>('https://localhost:44361/api/tarjetas/activa')
+    this.http.get<any>('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/activa')
       .subscribe(tarjeta => {
         this.tarjetaId = tarjeta.id;
         this.pegarStickers(tarjeta.stickersPegados);
@@ -72,7 +77,6 @@ export class TarjetaComponent implements OnInit {
         this.stickersDisponibles = res.cantidad;
       },
       error: () => {
-        console.error('Error al obtener los stickers disponibles');
       }
     });
   }
@@ -84,35 +88,39 @@ export class TarjetaComponent implements OnInit {
     }
   }
 
-  pegarSticker(): void {
+ pegarSticker(): void {
   if (!this.tarjetaId || this.stickersDisponibles <= 0) return;
 
+  this.pegandoSticker = true; // 🔥 Muestra loader
+
   this.tarjetasService.pegarSticker(this.tarjetaId).subscribe({
-   next: (res: any) => {
-  console.log('✅ Sticker pegado', res);
-  this.obtenerStickers();
+    next: (res: any) => {
+      this.obtenerStickers();
 
-  // Espera un poquito a que se actualice y vuelva a cargar la tarjeta
-  setTimeout(() => {
-    this.cargarTarjetaActiva(); // volverá con la nueva tarjeta si se completó
+      setTimeout(() => {
+        this.cargarTarjetaActiva();
 
-    const pegados = this.espacios.filter(e => e.ocupado).length + 1;
+        const pegados = this.espacios.filter(e => e.ocupado).length + 1;
 
-    if (pegados >= 15) {
-      alert("🎉 ¡Has completado tu tarjeta! Se ha generado una nueva.");
+        if (pegados >= 15) {
+          alert("🎉 ¡Has completado tu tarjeta! Se ha generado una nueva.");
+        }
+
+        const espacioPegado = this.espacios[pegados - 1];
+        if (espacioPegado && espacioPegado.premio) {
+          this.premioActual = this.obtenerDescuentoPorEspacio(espacioPegado.id);
+          this.mostrarAnimacionPremio = true;
+        }
+
+        this.pegandoSticker = false; // ✅ Oculta loader al final
+      }, 500);
+    },
+    error: () => {
+      this.pegandoSticker = false; // 🛑 Oculta loader si hay error
     }
-
-    // Detectar si fue un premio
-    const espacioPegado = this.espacios[pegados - 1];
-    if (espacioPegado && espacioPegado.premio) {
-      this.premioActual = this.obtenerDescuentoPorEspacio(espacioPegado.id);
-      this.mostrarAnimacionPremio = true;
-    }
-  }, 500);
-}
-
   });
 }
+
 
 
   obtenerDescuentoPorEspacio(id: number): number {

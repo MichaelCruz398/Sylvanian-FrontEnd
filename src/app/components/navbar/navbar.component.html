@@ -1,19 +1,32 @@
 <nav class="top-navbar">
-  <div class="navbar-left d-flex align-items-center">
+  <div class="navbar-left">
     <img src="https://unrivaled-sundae-e419d6.netlify.app/logo.png" alt="Logo" class="logo" />
-    <a *ngIf="userRol === 'cliente'" routerLink="/home">🐭 Rincón Sylvanian</a>
-    <a *ngIf="userRol === 'cliente'" routerLink="/tarjeta">🎟️ Mi Tarjeta</a>
-    <a *ngIf="userRol === 'cliente'" routerLink="/historial">📜 Historial</a>
-    <a *ngIf="userRol === 'cliente'" routerLink="/mis-tarjetas">📦 Mis Tarjetas</a>
-    <a *ngIf="userRol === 'admin'" routerLink="/admin">🛠️ Administrar</a>
-    <a *ngIf="userRol === 'admin'" routerLink="/solicitudes-descuento">📥 Solicitudes</a>
+
+    <!-- Texto solo en móvil -->
+    <div class="texto-movil">🐰 Rincón Sylvanian</div>
+
+    <!-- Botón hamburguesa (móvil) -->
+    <button class="hamburguesa" (click)="toggleMenuMobile()">☰</button>
+
+    <!-- Menú colapsable -->
+    <div class="nav-links" [class.abierto]="menuMobileAbierto">
+      <div class="usuario">🐰 {{ auth.obtenerNombre() }}</div>
+
+      <a *ngIf="userRol === 'cliente'" routerLink="/home">🐭 Rincón Sylvanian</a>
+      <a *ngIf="userRol === 'cliente'" routerLink="/tarjeta">🎟️ Mi Tarjeta</a>
+      <a *ngIf="userRol === 'cliente'" routerLink="/historial">📜 Historial</a>
+      <a *ngIf="userRol === 'cliente'" routerLink="/mis-tarjetas">📦 Mis Tarjetas</a>
+
+      <a *ngIf="userRol === 'admin'" routerLink="/admin">🛠️ Administrar</a>
+      <a *ngIf="userRol === 'admin'" routerLink="/solicitudes-descuento">📥 Solicitudes</a>
+
+      <!-- Cerrar sesión en móvil -->
+      <button class="btn-cerrar mobile-only" (click)="cerrarSesion()">🚪 Cerrar sesión</button>
+    </div>
   </div>
 
-  <div class="navbar-right" (click)="toggleMenu()" tabindex="0">
-    <span class="usuario">👩‍💼 {{ auth.obtenerNombre() }}</span>
-    <div class="user-menu" *ngIf="menuAbierto">
-      <a routerLink="/configuracion">⚙️ Configuración</a>
-      <button (click)="cerrarSesion()">🚪 Cerrar sesión</button>
-    </div>
+  <!-- Cerrar sesión en escritorio -->
+  <div class="navbar-right desktop-only">
+    <button class="btn-cerrar" (click)="cerrarSesion()">🚪 Cerrar sesión</button>
   </div>
 </nav>

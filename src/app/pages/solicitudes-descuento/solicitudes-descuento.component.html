@@ -14,12 +14,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let s of solicitudes">
-        <td>{{ s.usuario }}</td>
-        <td>{{ s.email }}</td>
-        <td>{{ s.descuento }}%</td>
-        <td>#{{ s.tarjetaId }}</td>
-        <td>{{ s.fecha | date: 'dd/MM/yyyy' }}</td>
-        <td>
+        <td data-label="Usuario">{{ s.usuario }}</td>
+        <td data-label="Email">{{ s.email }}</td>
+        <td data-label="Descuento">{{ s.descuento }}%</td>
+        <td data-label="Tarjeta">#{{ s.tarjetaId }}</td>
+        <td data-label="Fecha">{{ s.fecha | date: 'dd/MM/yyyy' }}</td>
+        <td data-label="Acción">
           <button (click)="aprobar(s.id, s.usuario)" class="btn btn-success btn-sm">Aprobar</button>
           <button (click)="rechazar(s.id)" class="btn btn-danger btn-sm">Rechazar</button>
         </td>
@@ -46,11 +46,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let a of aprobados">
-        <td>{{ a.usuario }}</td>
-        <td>{{ a.email }}</td>
-        <td>{{ a.descuento }}%</td>
-        <td>#{{ a.tarjetaId }}</td>
-        <td>{{ a.fecha | date: 'dd/MM/yyyy' }}</td>
+        <td data-label="Usuario">{{ a.usuario }}</td>
+        <td data-label="Email">{{ a.email }}</td>
+        <td data-label="Descuento">{{ a.descuento }}%</td>
+        <td data-label="Tarjeta">#{{ a.tarjetaId }}</td>
+        <td data-label="Fecha">{{ a.fecha | date: 'dd/MM/yyyy' }}</td>
       </tr>
     </tbody>
   </table>
