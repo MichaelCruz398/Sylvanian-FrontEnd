@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/auth';
+  private apiUrl = 'https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/Auth';
 
   constructor(private http: HttpClient) {}
 

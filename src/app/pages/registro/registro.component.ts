@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service'; 
-
+import { AuthService } from '../../services/auth.service';
+import { CargandoComponent } from '../../shared/cargando/cargando.component';
+import { CargandoService } from '../../shared/cargando.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, CargandoComponent],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
@@ -20,40 +22,67 @@ export class RegistroComponent {
   confirmPassword = '';
   error = '';
   mensaje = '';
-
-constructor(public router: Router, private authService: AuthService) {}
-
-registrar(): void {
-  if (!this.email || !this.password || !this.nombre) {
-    this.error = 'Todos los campos son obligatorios';
-    return;
+  cargando = false;
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private cargandoService: CargandoService
+  ) {
+    this.cargandoService.cargando$.subscribe(valor => {
+      this.cargando = valor;
+    });
   }
 
-  if (this.password !== this.confirmPassword) {
-    this.error = 'Las contraseñas no coinciden';
-    return;
-  }
+  registrar(): void {
+    this.error = '';
+    this.mensaje = '';
+    this.cargandoService.mostrar();
 
-  const nuevoUsuario = {
-    nombre: this.nombre,
-    email: this.email,
-    password: this.password
-  };
-
-
-  this.authService.register(this.nombre, this.email, this.password).subscribe({
-    next: (res: any) => {
-      alert('¡Registro exitoso! Bienvenido 😊');
-      this.router.navigate(['/login']);
-    },
-    error: (err) => {
-      console.error(err);
-      this.error = 'Error al registrar. Intenta nuevamente.';
+    if (!this.email || !this.password || !this.nombre || !this.confirmPassword) {
+      this.error = 'Todos los campos son obligatorios.';
+      this.cargandoService.ocultar();
+      return;
     }
-  });
-}
+
+    if (this.password !== this.confirmPassword) {
+      this.error = 'Las contraseñas no coinciden.';
+      this.cargandoService.ocultar();
+      return;
+    }
+
+    this.authService.register(this.nombre, this.email, this.password).subscribe({
+      next: () => {
+        this.cargandoService.ocultar();
+        Swal.fire({
+          title: '¡Registro exitoso!',
+          text: 'Bienvenida a Rincón Sylvanian 🐰✨',
+          icon: 'success',
+          confirmButtonColor: '#e69bbf',
+          confirmButtonText: 'Ir al inicio',
+          background: '#fffaf3',
+          customClass: {
+            popup: 'rounded-4'
+          }
+        }).then(() => {
+          this.router.navigate(['/login']);
+        });
+      }
+      ,
+      error: (err) => {
+        if (err.error?.message) {
+          this.error = err.error.message;
+        } else {
+          this.error = 'Error al registrar. Intenta nuevamente.';
+        }
+      },
+      complete: () => {
+        this.cargandoService.ocultar();
+      }
+    });
+  }
+
   volverAlLogin() {
-  this.router.navigate(['/login']);
-}
+    this.router.navigate(['/login']);
+  }
 
 }
