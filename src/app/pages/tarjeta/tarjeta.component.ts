@@ -69,7 +69,7 @@ export class TarjetaComponent implements OnInit {
   }
 
   cargarTarjetaActiva(): void {
-    this.http.get<any>('https://localhost:44361/api/tarjetas/activa').subscribe(tarjeta => {
+    this.http.get<any>('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/activa').subscribe(tarjeta => {
       this.tarjetaId = tarjeta.id;
       this.pegarStickers(tarjeta.stickersPegados);
     });
