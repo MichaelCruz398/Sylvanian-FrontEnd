@@ -13,7 +13,8 @@ export class TarjetasService {
     return this.http.get<{ cantidad: number }>(`${this.apiUrl}/mis-stickers`);
   }
   pegarSticker(tarjetaId: number) {
-    return this.http.post('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/pegar-sticker', tarjetaId,
+    return this.http.post('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/pegar-sticker',
+      { tarjetaId },
       {
         headers: { 'Content-Type': 'application/json' }
       }

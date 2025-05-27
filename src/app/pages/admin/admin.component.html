@@ -1,7 +1,7 @@
 <div class="admin-container">
   <h2 class="titulo-admin">👩‍💼 Panel de Administración</h2>
 
-  <input [(ngModel)]="busqueda" placeholder="🔍 Buscar por nombre..." class="input-busqueda" />
+  <input [(ngModel)]="busqueda" (input)="actualizarFiltroYPagina()" placeholder="🔍 Buscar por nombre..." class="input-busqueda" />
 
   <table class="tabla-usuarios">
     <thead>
@@ -13,14 +13,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let u of usuariosFiltrados()">
-        <td data-label = "Nombre">{{ u.nombre }}</td>
-        <td data-label = "Correo">{{ u.correo }}</td>
-        <td data-label = "Stickers">{{ u.stickers }}</td>
-        <td data-label = "Asignar">
+      <tr *ngFor="let u of usuariosPaginados">
+        <td data-label="Nombre">{{ u.nombre }}</td>
+        <td data-label="Correo">{{ u.correo }}</td>
+        <td data-label="Stickers">{{ u.stickers }}</td>
+        <td data-label="Asignar">
           <button (click)="asignarSticker(u.id)" class="btn-asignar">🎟️ Asignar</button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Paginador -->
+  <div class="paginador text-center mt-4" *ngIf="paginas.length > 1">
+    <button
+      *ngFor="let pagina of paginas"
+      (click)="irPagina(pagina)"
+      [class.activo]="paginaActual === pagina"
+      class="btn-pagina"
+    >
+      {{ pagina }}
+    </button>
+  </div>
 </div>

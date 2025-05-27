@@ -1,6 +1,7 @@
 <app-cargando *ngIf="cargando"></app-cargando>
 
-<div class="registro-container p-4" style="max-width: 420px; margin: 40px auto; background-color: #fffaf3; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
+<div class="registro-container p-4"
+  style="max-width: 420px; margin: 40px auto; background-color: #fffaf3; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
   <div style="text-align: center; margin-bottom: 20px;">
     <img src="https://unrivaled-sundae-e419d6.netlify.app/logo.png" alt="Logo Rincón Sylvanian" width="90" />
   </div>
@@ -27,24 +28,21 @@
     <input [(ngModel)]="confirmPassword" type="password" placeholder="Repite la contraseña" class="form-control" />
   </div>
 
-  <div *ngIf="error" class="alert alert-danger mt-2 text-center">{{ error }}</div>
+  <div *ngIf="error" class="alert alert-danger mt-2 text-center animate__animated animate__fadeIn">
+    {{ error }}
+  </div>
+
   <div *ngIf="mensaje" class="alert alert-success mt-2 text-center">{{ mensaje }}</div>
 
-  <button class="btn w-100 mt-3" style="background-color: #e69bbf; border: none; color: white; font-weight: bold; padding: 12px; border-radius: 10px;    transition: background-color 0.3s ease;
-  "
-  (click)="registrar()"
-  onmouseover="this.style.backgroundColor='#d482ab'"
-  onmouseout="this.style.backgroundColor='#e69bbf'"
->
-  🐰 Registrarse
-</button>
+  <button class="btn w-100 mt-3"
+    style="background-color: #e69bbf; border: none; color: white; font-weight: bold; padding: 12px; border-radius: 10px;"
+    [disabled]="cargando" (click)="registrar()">
+    🐰 Registrarse
+  </button>
 
 
-<div class="text-center mt-4">
-  <button
-    (click)="volverAlLogin()"
-    class="btn w-100"
-    style="
+  <div class="text-center mt-4">
+    <button (click)="volverAlLogin()" class="btn w-100" style="
       background-color: #fff;
       color: #b3887b;
       border: 2px solid #e0cfc1;
@@ -52,12 +50,9 @@
       font-weight: bold;
       padding: 10px 20px;
       transition: all 0.3s ease;
-    "
-    onmouseover="this.style.backgroundColor='#fceeee'"
-    onmouseout="this.style.backgroundColor='#fff'"
-  >
-    ⬅️ Volver al inicio
-  </button>
-</div>
+    " onmouseover="this.style.backgroundColor='#fceeee'" onmouseout="this.style.backgroundColor='#fff'">
+      ⬅️ Volver al inicio
+    </button>
+  </div>
 
 </div>

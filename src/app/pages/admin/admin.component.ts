@@ -5,8 +5,6 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { AdminService } from '../../services/admin.service';
 import Swal from 'sweetalert2';
 
-
-
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -16,12 +14,15 @@ import Swal from 'sweetalert2';
 })
 export class AdminComponent implements OnInit {
   usuarios: any[] = [];
-  asignaciones: { [id: number]: number } = {};
+  usuariosFiltradosTotal: any[] = [];
+  usuariosPaginados: any[] = [];
 
-  stickerAsignar = 1;
+  paginaActual = 1;
+  porPagina = 5;
+  totalPaginas = 0;
   busqueda = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -30,7 +31,7 @@ export class AdminComponent implements OnInit {
   cargarUsuarios(): void {
     this.adminService.obtenerUsuarios().subscribe(data => {
       this.usuarios = data
-        .filter(u => u.rol === 1) // ← filtra solo los clientes
+        .filter(u => u.rol === 1)
         .map(u => ({
           id: u.id,
           nombre: u.nombre,
@@ -38,77 +39,74 @@ export class AdminComponent implements OnInit {
           stickers: u.stickers ?? 0
         }));
 
+      this.actualizarFiltroYPagina();
     });
   }
 
-
- asignarSticker(usuarioId: number): void {
-  const usuario = this.usuarios.find(u => u.id === usuarioId);
-  if (!usuario) return;
-
-  Swal.fire({
-    title: '🎟️ ¿Asignar sticker?',
-    html: `
-      <p style="font-size: 1rem; color: #7a5a50; margin: 0;">
-        ¿Deseas asignar <strong>1 sticker</strong> a <strong>${usuario.nombre}</strong>?
-      </p>
-    `,
-    icon: 'question',
-    background: '#fffaf3',
-    showCancelButton: true,
-    confirmButtonColor: '#ffb6b9',
-    cancelButtonColor: '#ccc',
-    confirmButtonText: 'Sí, asignar',
-    cancelButtonText: 'Cancelar',
-    customClass: {
-      popup: 'sweet-popup',
-      title: 'sweet-title',
-      confirmButton: 'sweet-btn'
-    }
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.adminService.asignarSticker(usuarioId).subscribe({
-        next: () => {
-          usuario.stickers += 1;
-
-          Swal.fire({
-            icon: 'success',
-            title: '🎉 ¡Sticker asignado!',
-            html: `
-              <p style="font-size: 1rem; margin: 0;">
-                Se asignó 1 sticker a <strong>${usuario.nombre}</strong>
-              </p>
-            `,
-            background: '#fffaf3',
-            confirmButtonColor: '#b3887b',
-            customClass: {
-              popup: 'sweet-popup',
-              title: 'sweet-title',
-              confirmButton: 'sweet-btn'
-            }
-          });
-        },
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title: '❌ Error',
-            text: 'No se pudo asignar el sticker',
-            background: '#fff0f0',
-            confirmButtonColor: '#d33',
-            customClass: {
-              popup: 'sweet-popup',
-              title: 'sweet-title',
-              confirmButton: 'sweet-btn'
-            }
-          });
-        }
-      });
-    }
-  });
-}
-  usuariosFiltrados() {
-    return this.usuarios.filter(u =>
+  actualizarFiltroYPagina(): void {
+    this.paginaActual = 1; // Reinicia al buscar
+    this.usuariosFiltradosTotal = this.usuarios.filter(u =>
       u.nombre.toLowerCase().includes(this.busqueda.toLowerCase())
     );
+    this.totalPaginas = Math.ceil(this.usuariosFiltradosTotal.length / this.porPagina);
+    this.actualizarPaginador();
+  }
+
+  actualizarPaginador(): void {
+    const inicio = (this.paginaActual - 1) * this.porPagina;
+    const fin = inicio + this.porPagina;
+    this.usuariosPaginados = this.usuariosFiltradosTotal.slice(inicio, fin);
+  }
+
+  irPagina(pagina: number): void {
+    this.paginaActual = pagina;
+    this.actualizarPaginador();
+  }
+
+  get paginas(): number[] {
+    return Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
+  }
+
+  asignarSticker(usuarioId: number): void {
+    const usuario = this.usuarios.find(u => u.id === usuarioId);
+    if (!usuario) return;
+
+    Swal.fire({
+      title: '🎟️ ¿Asignar sticker?',
+      html: `<p>¿Deseas asignar <strong>1 sticker</strong> a <strong>${usuario.nombre}</strong>?</p>`,
+      icon: 'question',
+      background: '#fffaf3',
+      showCancelButton: true,
+      confirmButtonColor: '#ffb6b9',
+      cancelButtonColor: '#ccc',
+      confirmButtonText: 'Sí, asignar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.asignarSticker(usuarioId).subscribe({
+          next: () => {
+            usuario.stickers += 1;
+            this.actualizarPaginador();
+
+            Swal.fire({
+              icon: 'success',
+              title: '🎉 ¡Sticker asignado!',
+              html: `Se asignó 1 sticker a <strong>${usuario.nombre}</strong>`,
+              background: '#fffaf3',
+              confirmButtonColor: '#b3887b'
+            });
+          },
+          error: () => {
+            Swal.fire({
+              icon: 'error',
+              title: '❌ Error',
+              text: 'No se pudo asignar el sticker',
+              background: '#fff0f0',
+              confirmButtonColor: '#d33'
+            });
+          }
+        });
+      }
+    });
   }
 }

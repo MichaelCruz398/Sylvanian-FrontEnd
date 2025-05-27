@@ -1,6 +1,9 @@
 .admin-container {
   padding: 2rem;
   background-color: #fffaf3;
+  box-sizing: border-box;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .titulo-admin {
@@ -22,6 +25,9 @@
   font-size: 1rem;
   font-family: 'Segoe UI';
   background-color: #fff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tabla-usuarios {
@@ -31,7 +37,7 @@
   background-color: #fff;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   font-family: 'Segoe UI', sans-serif;
 
   th {
@@ -72,6 +78,7 @@
     background-color: #f48fb1;
   }
 }
+
 .sweet-popup {
   border-radius: 20px !important;
   padding: 2rem !important;
@@ -91,11 +98,15 @@
   border-radius: 10px !important;
   padding: 8px 20px;
 }
+
 @media (max-width: 768px) {
   .admin-container {
     width: 100%;
     padding: 1rem;
     background-color: #fffaf3;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .titulo-admin {
@@ -130,8 +141,8 @@
       border-radius: 12px;
       margin: 0 auto 1.5rem auto;
       padding: 1rem;
-      width: 100%;
-      max-width: 500px;
+      width: calc(100% - 2rem);
+      max-width: 480px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
@@ -173,4 +184,32 @@
     border-radius: 8px;
     text-align: center;
   }
+}
+
+.paginador {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.btn-pagina {
+  background-color: #ffe0ef;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #a679b4;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-pagina:hover {
+  background-color: #f3cade;
+}
+
+.btn-pagina.activo {
+  background-color: #e69bbf;
+  color: white;
 }

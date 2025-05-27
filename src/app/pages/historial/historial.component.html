@@ -4,10 +4,10 @@
 
     <div *ngIf="premios.length > 0; else sinPremios">
       <ul class="lista-premios">
-        <li *ngFor="let premio of premios" class="item-premio">
+        <li *ngFor="let premio of premiosPaginados" class="item-premio">
           <span class="emoji-premio">✨</span>
           <div class="info-premio">
-            <strong>{{ premio.descuento }}% de descuento</strong>
+            <strong>{{ premio.descripcion }}</strong>
             <small>Obtenido el {{ premio.fecha | date: 'dd/MM/yyyy' }}</small>
             <small class="tarjeta-id">🎟️ Tarjeta #{{ premio.tarjetaId }}</small>
 
@@ -27,6 +27,18 @@
           </div>
         </li>
       </ul>
+
+      <!-- PAGINADOR -->
+      <div class="paginador text-center mt-4" *ngIf="paginas.length > 1">
+        <button
+          *ngFor="let pagina of paginas"
+          (click)="irPagina(pagina)"
+          [class.activo]="paginaActual === pagina"
+          class="btn-pagina"
+        >
+          {{ pagina }}
+        </button>
+      </div>
     </div>
 
     <ng-template #sinPremios>

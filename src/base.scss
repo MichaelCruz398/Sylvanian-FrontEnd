@@ -9,17 +9,21 @@
   }
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
   background-image: url("/assets/images/patron-fondo.png") !important;
   background-repeat: repeat !important;
   background-size: 250px !important;
   background-color: #fffaf3 !important;
   font-family: 'Segoe UI', sans-serif;
   min-height: 100vh;
-  height: 100%
 }
+
 
 h1,
 h2,
@@ -113,4 +117,7 @@ button:active {
   font-weight: bold;
   border-radius: 10px !important;
   padding: 8px 20px;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
 }

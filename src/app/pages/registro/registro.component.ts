@@ -23,6 +23,7 @@ export class RegistroComponent {
   error = '';
   mensaje = '';
   cargando = false;
+
   constructor(
     public router: Router,
     private authService: AuthService,
@@ -38,8 +39,15 @@ export class RegistroComponent {
     this.mensaje = '';
     this.cargandoService.mostrar();
 
-    if (!this.email || !this.password || !this.nombre || !this.confirmPassword) {
+    // Validaciones básicas
+    if (!this.nombre || !this.email || !this.password || !this.confirmPassword) {
       this.error = 'Todos los campos son obligatorios.';
+      this.cargandoService.ocultar();
+      return;
+    }
+
+    if (!this.validarEmail(this.email)) {
+      this.error = 'El correo no es válido.';
       this.cargandoService.ocultar();
       return;
     }
@@ -66,23 +74,25 @@ export class RegistroComponent {
         }).then(() => {
           this.router.navigate(['/login']);
         });
-      }
-      ,
+      },
       error: (err) => {
+        this.cargandoService.ocultar();
+
         if (err.error?.message) {
           this.error = err.error.message;
         } else {
           this.error = 'Error al registrar. Intenta nuevamente.';
         }
-      },
-      complete: () => {
-        this.cargandoService.ocultar();
       }
     });
+  }
+
+  validarEmail(correo: string): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(correo);
   }
 
   volverAlLogin() {
     this.router.navigate(['/login']);
   }
-
 }

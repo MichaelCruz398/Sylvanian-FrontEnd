@@ -1,7 +1,10 @@
 <!-- Pantalla de carga -->
 <app-cargando *ngIf="cargando"></app-cargando>
-<div class="login-container">
-  <img src="assets/images/logo.png" alt="Logo" class="logo mb-4" />
+
+<div class="login-container" style="max-width: 400px; margin: 60px auto; background-color: #fffaf3; padding: 2rem; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
+  <div class="text-center mb-4">
+    <img src="assets/images/logo.png" alt="Logo" class="logo" width="90" />
+  </div>
 
   <h2 class="mb-3 text-center" style="color: #b3887b;">Iniciar sesión</h2>
 
@@ -10,9 +13,10 @@
       <input
         [(ngModel)]="email"
         name="email"
-        type="email"
-        placeholder="Correo electrónico"
+        type="text"
+        placeholder="Correo electrónico o nombre Instagram"
         class="form-control"
+        (input)="onInputChange()"
         required
       />
     </div>
@@ -24,6 +28,7 @@
         type="password"
         placeholder="Contraseña"
         class="form-control"
+        (input)="onInputChange()"
         required
       />
     </div>
@@ -41,13 +46,17 @@
       {{ errorMessage }}
     </div>
 
-    <button type="submit" class="btn w-100 mt-3"
-      style="background-color: #e69bbf; border: none; color: white; font-weight: bold;">
-      Ingresar
+    <button
+      type="submit"
+      class="btn w-100 mt-3"
+      [disabled]="cargando"
+      style="background-color: #e69bbf; border: none; color: white; font-weight: bold; padding: 12px; border-radius: 10px;"
+    >
+      🐰 Ingresar
     </button>
   </form>
 
-  <p class="mt-3 text-muted text-center">
+  <p class="mt-4 text-muted text-center">
     ¿No tienes cuenta?
     <span
       (click)="router.navigate(['/registro'])"

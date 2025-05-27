@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { TarjetasService } from '../../services/tarjetas.service';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 interface Espacio {
   id: number;
@@ -25,13 +26,12 @@ export class TarjetaComponent implements OnInit {
   stickerURL = 'assets/images/sticker.png';
   mostrarPopup = false;
   mostrarAnimacionPremio = false;
-  premioActual = 0;
+  premioActual: string = '';
   stickersDisponibles = 0;
   tarjetaId!: number;
   nombreUsuario: string = '';
   esMovil: boolean = false;
   pegandoSticker: boolean = false;
-
 
   espacios: Espacio[] = Array.from({ length: 15 }, (_, i) => {
     const id = i + 1;
@@ -51,24 +51,28 @@ export class TarjetaComponent implements OnInit {
     };
   });
 
-  constructor(private http: HttpClient, private tarjetasService: TarjetasService, private authService: AuthService) { }
+  constructor(
+    private http: HttpClient,
+    private tarjetasService: TarjetasService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.esMovil = window.innerWidth <= 768;
     this.obtenerStickers();
     this.cargarTarjetaActiva();
     this.nombreUsuario = this.authService.obtenerNombre();
+
     window.addEventListener('resize', () => {
       this.esMovil = window.innerWidth <= 768;
     });
   }
 
   cargarTarjetaActiva(): void {
-    this.http.get<any>('https://rincon-api-csbxhshtcjbsgwbn.brazilsouth-01.azurewebsites.net/api/tarjetas/activa')
-      .subscribe(tarjeta => {
-        this.tarjetaId = tarjeta.id;
-        this.pegarStickers(tarjeta.stickersPegados);
-      });
+    this.http.get<any>('https://localhost:44361/api/tarjetas/activa').subscribe(tarjeta => {
+      this.tarjetaId = tarjeta.id;
+      this.pegarStickers(tarjeta.stickersPegados);
+    });
   }
 
   obtenerStickers(): void {
@@ -76,8 +80,7 @@ export class TarjetaComponent implements OnInit {
       next: (res) => {
         this.stickersDisponibles = res.cantidad;
       },
-      error: () => {
-      }
+      error: () => {}
     });
   }
 
@@ -88,53 +91,69 @@ export class TarjetaComponent implements OnInit {
     }
   }
 
- pegarSticker(): void {
-  if (!this.tarjetaId || this.stickersDisponibles <= 0) return;
+  pegarSticker(): void {
+    if (!this.tarjetaId || this.stickersDisponibles <= 0) return;
 
-  this.pegandoSticker = true; // 🔥 Muestra loader
+    this.pegandoSticker = true;
 
-  this.tarjetasService.pegarSticker(this.tarjetaId).subscribe({
-    next: (res: any) => {
-      this.obtenerStickers();
+    console.log('Pegando sticker en tarjeta ID:', this.tarjetaId); // ✅ depuración
 
-      setTimeout(() => {
-        this.cargarTarjetaActiva();
+    this.tarjetasService.pegarSticker(this.tarjetaId).subscribe({
+      next: () => {
+        this.obtenerStickers();
 
-        const pegados = this.espacios.filter(e => e.ocupado).length + 1;
+        const pegados = this.espacios.filter(e => e.ocupado).length;
+        const nuevoIndex = pegados;
 
-        if (pegados >= 15) {
-          alert("🎉 ¡Has completado tu tarjeta! Se ha generado una nueva.");
+        if (nuevoIndex < this.espacios.length) {
+          this.espacios[nuevoIndex].ocupado = true;
+          this.espacios[nuevoIndex].imagen = this.stickerURL;
         }
 
-        const espacioPegado = this.espacios[pegados - 1];
-        if (espacioPegado && espacioPegado.premio) {
-          this.premioActual = this.obtenerDescuentoPorEspacio(espacioPegado.id);
+        const espacioPegado = this.espacios[nuevoIndex];
+
+        if (espacioPegado?.premio) {
+          this.premioActual = this.obtenerPremioPorEspacio(espacioPegado.id);
           this.mostrarAnimacionPremio = true;
         }
 
-        this.pegandoSticker = false; // ✅ Oculta loader al final
-      }, 500);
-    },
-    error: () => {
-      this.pegandoSticker = false; // 🛑 Oculta loader si hay error
-    }
-  });
-}
+        setTimeout(() => {
+          if (nuevoIndex + 1 >= 15) {
+            setTimeout(() => {
+              Swal.fire({
+                title: '🎉 ¡Tarjeta completada!',
+                text: 'Has llenado todos los espacios y se ha generado una nueva tarjeta para ti 🥳',
+                icon: 'success',
+                confirmButtonText: '¡Genial!',
+                confirmButtonColor: '#b3887b',
+                background: '#fffaf3',
+              });
+            }, 300);
+          }
 
+          this.cargarTarjetaActiva();
+          this.pegandoSticker = false;
+        }, 1500);
+      },
+      error: () => {
+        this.pegandoSticker = false;
+      }
+    });
+  }
 
-
-  obtenerDescuentoPorEspacio(id: number): number {
+  obtenerPremioPorEspacio(id: number): string {
     switch (id) {
       case 3:
+        return '10% de descuento';
       case 6:
-        return 10;
+        return '¡Accesorio sorpresa!';
       case 9:
       case 12:
-        return 15;
+        return '15% de descuento';
       case 15:
-        return 20;
+        return '20% de descuento';
       default:
-        return 0;
+        return '';
     }
   }
 

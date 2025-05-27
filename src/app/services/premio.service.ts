@@ -11,17 +11,14 @@ export class PremiosService {
   return this.http.get<any[]>(`${this.apiUrl}/mis-premios`);
 }
 
-  // 🧍 Usuario solicita usar un premio
   solicitarUso(premioId: number) {
     return this.http.post(`${this.apiUrl}/solicitar-uso/${premioId}`, {});
   }
 
-  // 🧑‍💼 Admin ve todas las solicitudes pendientes
   obtenerSolicitudes() {
     return this.http.get<any[]>(`${this.apiUrl}/solicitudes`);
   }
 
-  // ✅ Admin aprueba un premio
   aprobarSolicitud(premioId: number) {
     return this.http.post(`${this.apiUrl}/aprobar/${premioId}`, {});
   }

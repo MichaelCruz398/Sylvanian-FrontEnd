@@ -108,3 +108,38 @@
     width: 100%;
   }
 }
+.info-premio {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  word-break: break-word;
+  gap: 0.3rem; // 👈 nuevo: espacio entre líneas internas
+}
+.paginador {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn-pagina {
+  background-color: #ffe0ef;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #a679b4;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-pagina:hover {
+  background-color: #f3cade;
+}
+
+.btn-pagina.activo {
+  background-color: #e69bbf;
+  color: white;
+}
